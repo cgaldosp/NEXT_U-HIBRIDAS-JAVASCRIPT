@@ -13,6 +13,7 @@ var calculadora = {
     if (this.pnValor1 == 0){
       this.pnValor1 = parseFloat(p_nValor);
     }else{
+      console.log(p_nValor);
       this.pnValor2 = parseFloat(p_nValor);
     }
   },
@@ -26,6 +27,10 @@ var calculadora = {
     }else if (this.pcOperac == "dividido"){
       this.pnResult = this.divi();
     }
+    console.log(this.pnValor1);
+    console.log(this.pnValor2);
+    console.log(this.pcOperac);
+    console.log(this.pnResult);
     this.pnValor1 = 0;
     this.pnValor2 = 0;
   }
@@ -36,22 +41,18 @@ var paTeclas = document.getElementsByClassName('tecla');
 
 //asigna eveto click a teclas
 for (var i = 0; i < paTeclas.length; i+=1) {
-//  paTeclas[i].onmousedown = presionaBoton;
+  paTeclas[i].onmousedown = presionaBoton;
   paTeclas[i].onclick = presionaClick;
-//  paTeclas[i].onmouseup = sueltaBoton;
+  paTeclas[i].onmouseup = sueltaBoton;
 }
 
 //Ejecuta acciones al presionar botón
 function presionaBoton(e){
-//  e.target.style.width = parseInt(e.target.width - 1) + "px";
-//  e.target.style.height = parseInt(e.target.height - 1) + "px";
-  e.target.style.opacity = "0.5";
+  e.target.style.opacity = 0.5;
 }
 //Ejecuta acciones al soltar botón
 function sueltaBoton(e){
-//  e.target.style.width = parseInt(e.target.width + 1) + "px";
-//  e.target.style.height = parseInt(e.target.height + 1) + "px";
-  e.target.style.opacity = "1.0";
+  e.target.style.opacity = 1.0;
 }
 
 
@@ -76,6 +77,9 @@ function presionaClick(e){
         calculadora.plPunto = false;
         pantalla = "";
     } else if (e.target.id == "igual"){
+        if (pantalla == ""){
+          pantalla = "0";
+        }
         calculadora.asig(pantalla);
         calculadora.calc();
         pantalla = calculadora.pnResult.toString().substr(0, 8);
